@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rohit's Todo App</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#667eea">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Rohit's Todos">
+    <meta name="description" content="Rohit's Personal Todo App with offline support">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIlJvaGl0J3MgUGVyc29uYWwgVG9kbyBBcHAiLAogICJzaG9ydF9uYW1lIjogIlJvaGl0J3MgVG9kb3MiLAogICJkZXNjcmlwdGlvbiI6ICJSb2hpdCdzIHBlcnNvbmFsIHRvZG8gYXBwIHdpdGggb2ZmbGluZSBzdXBwb3J0IiwKICAic3RhcnRfdXJsIjogIi4vIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAiYmFja2dyb3VuZF9jb2xvciI6ICIjNjY3ZWVhIiwKICAidGhlbWVfY29sb3IiOiAiIzY2N2VlYSIsCiAgImljb25zIjogWwogICAgewogICAgICAic3JjIjogImRhdGE6aW1hZ2Uvc3ZnK3htbCwlM0NzdmclMjB3aWR0aCUzRCUyMjE5MiUyMiUyMGhlaWdodCUzRCUyMjE5MiUyMiUyMHZpZXdCb3glM0QlMjIwJTIwMCUyMDE5MiUyMDE5MiUyMiUyMGZpbGwlM0QlMjJub25lJTIyJTIweG1sbnMlM0QlMjJodHRwJTNBJTJGJTJGd3d3LnczLm9yZyUyRjIwMDAlMkZzdmclMjIlM0UlM0NyZWN0JTIwd2lkdGglM0QlMjIxOTIlMjIlMjBoZWlnaHQlM0QlMjIxOTIlMjIlMjByeCUzRCUyMjI0JTIyJTIwZmlsbCUzRCUyMiUyMzY2N2VlYSUyMiUyRiUzRSUzQ3BhdGglMjBkJTNEJTIyTTQ4JTIwOTZDNDglMjA4Ny4xNjM0JTIwNTUuMTYzNCUyMDgwJTIwNjQlMjA4MEgxMjhDMTM2LjgzNyUyMDgwJTIwMTQ0JTIwODcuMTYzNCUyMDE0NCUyMDk2VjEyOEMxNDQlMjAxMzYuODM3JTIwMTM2LjgzNyUyMDE0NCUyMDEyOCUyMDE0NEg2NEM1NS4xNjM0JTIwMTQ0JTIwNDglMjAxMzYuODM3JTIwNDglMjAxMjhWOTZaJTIyJTIwZmlsbCUzRCUyMndoaXRlJTIyJTIwZmlsbC1vcGFjaXR5JTNEJTIyMC45JTIyJTJGJTNFJTNDcGF0aCUyMGQlM0QlMjJNODAlMjAxMTJMOTYlMjAxMjhMMTI4JTIwOTYlMjIlMjBzdHJva2UlM0QlMjIlMjM2NjdlZWElMjIlMjBzdHJva2Utd2lkdGglM0QlMjI0JTIyJTIwc3Ryb2tlLWxpbmVjYXAlM0QlMjJyb3VuZCUyMiUyMHN0cm9rZS1saW5lam9pbiUzRCUyMnJvdW5kJTIyJTJGJTNFJTNDJTJGc3ZnJTNFIiwKICAgICAgInNpemVzIjogIjE5MngxOTIiLAogICAgICAidHlwZSI6ICJpbWFnZS9zdmcreG1sIgogICAgfSwKICAgIHsKICAgICAgInNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWwsJTNDc3ZnJTIwd2lkdGglM0QlMjI1MTIlMjIlMjBoZWlnaHQlM0QlMjI1MTIlMjIlMjB2aWV3Qm94JTNEJTIyMCUyMDAlMjA1MTIlMjA1MTIlMjIlMjBmaWxsJTNEJTIybm9uZSUyMiUyMHhtbG5zJTNEJTIyaHR0cCUzQSUyRiUyRnd3dy53My5vcmclMkYyMDAwJTJGc3ZnJTIyJTNFJTNDcmVjdCUyMHdpZHRoJTNEJTIyNTEyJTIyJTIwaGVpZ2h0JTNEJTIyNTEyJTIyJTIwcnglM0QlMjI2NCUyMiUyMGZpbGwlM0QlMjIlMjM2NjdlZWElMjIlMkYlM0UlM0NwYXRoJTIwZCUzRCUyMk0xMjglMjAyNTZDMTI4JTIwMjMzLjkwOSUyMDE0Ni4wOTElMjAyMTYlMjAxNzElMjAyMTZIMzQxQzM2NS45MDklMjAyMTYlMjAzODQlMjAyMzMuOTA5JTIwMzg0JTIwMjU2VjM0MUMzODQlMjAzNjUuMDkxJTIwMzY1LjA5MSUyMDM4NCUyMDM0MSUyMDM4NEgxNzFDMTQ2LjA5MSUyMDM4NCUyMDEyOCUyMDM2NS4wOTElMjAxMjglMjAzNDFWMjU2WiUyMiUyMGZpbGwlM0QlMjJ3aGl0ZSUyMiUyMGZpbGwtb3BhY2l0eSUzRCUyMjAuOSUyMiUyRiUzRSUzQ3BhdGglMjBkJTNEJTIyTTIxMyUyMDMwMEwyNTYlMjAzNDNMMzQyJTIwMjU3JTIyJTIwc3Ryb2tlJTNEJTIyJTIzNjY3ZWVhJTIyJTIwc3Ryb2tlLXdpZHRoJTNEJTIyMTAlMjIlMjBzdHJva2UtbGluZWNhcCUzRCUyMnJvdW5kJTIyJTIwc3Ryb2tlLWxpbmVqb2luJTNEJTIycm91bmQlMjIlMkYlM0UlM0MlMkZzdmclM0UiLAogICAgICAic2l6ZXMiOiAiNTEyeDUxMiIsCiAgICAgICJ0eXBlIjogImltYWdlL3N2Zyt4bWwiCiAgICB9CiAgXSwKICAib3JpZW50YXRpb24iOiAicG9ydHJhaXQiLAogICJjYXRlZ29yaWVzIjogWyJwcm9kdWN0aXZpdHkiLCAidXRpbGl0aWVzIl0sCiAgImxhbmciOiAiZW4iCn0=">
+    
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg width='180' height='180' viewBox='0 0 180 180' fill='none' xmlns='http://www.w3.org/2000/svg'><rect width='180' height='180' rx='20' fill='%23667eea'/><path d='M45 90C45 81.1634 52.1634 74 61 74H119C127.837 74 135 81.1634 135 90V119C135 127.837 127.837 135 119 135H61C52.1634 135 45 127.837 45 119V90Z' fill='white' fill-opacity='0.9'/><path d='M75 105L90 120L120 90' stroke='%23667eea' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            padding: 20px;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 1.8em;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .header .subtitle {
+            font-size: 0.85em;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .offline-indicator {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.7em;
+            display: none;
+        }
+
+        .offline-indicator.show {
+            display: block;
+        }
+
+        .add-section {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .todo-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            background: #f8f9fa;
+            transition: border-color 0.2s ease;
+        }
+
+        .todo-input:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+        }
+
+        .date-section {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .date-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .date-toggle input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #667eea;
+            cursor: pointer;
+        }
+
+        .date-toggle label {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .date-input {
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            background: #f8f9fa;
+            cursor: pointer;
+        }
+
+        .date-input:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+        }
+
+        .add-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+            touch-action: manipulation;
+        }
+
+        .add-btn:active {
+            transform: scale(0.98);
+        }
+
+        .add-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .todos-section {
+            max-height: 60vh;
+            overflow-y: auto;
+            padding: 0 20px 20px;
+        }
+
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 4px;
+            margin: 15px 0;
+            padding: 0 5px;
+        }
+
+        .filter-tab {
+            flex: 1;
+            padding: 8px 12px;
+            border: none;
+            background: #f0f0f0;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            touch-action: manipulation;
+        }
+
+        .filter-tab.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .filter-tab:active {
+            transform: scale(0.95);
+        }
+
+        .todo-item {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            margin: 10px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid #667eea;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .todo-item.completed {
+            opacity: 0.7;
+            border-left-color: #27ae60;
+            background: #f8f9fa;
+        }
+
+        .todo-checkbox {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid #ddd;
+            cursor: pointer;
+            position: relative;
+            flex-shrink: 0;
+            margin-top: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            touch-action: manipulation;
+        }
+
+        .todo-checkbox:active {
+            transform: scale(0.9);
+        }
+
+        .todo-checkbox.checked {
+            background: #27ae60;
+            border-color: #27ae60;
+            color: white;
+            font-weight: bold;
+        }
+
+        .todo-details {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .todo-text {
+            font-size: 15px;
+            line-height: 1.4;
+            margin-bottom: 6px;
+            word-wrap: break-word;
+            color: #333;
+        }
+
+        .todo-item.completed .todo-text {
+            text-decoration: line-through;
+            color: #888;
+        }
+
+        .todo-date {
+            font-size: 12px;
+            color: #666;
+            background: #e8f4fd;
+            padding: 4px 8px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 8px;
+        }
+
+        .todo-actions {
+            margin-top: 8px;
+        }
+
+        .delete-btn {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+            touch-action: manipulation;
+        }
+
+        .delete-btn:active {
+            transform: scale(0.95);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+        }
+
+        .empty-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .loading {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .todo-item {
+            animation: slideIn 0.2s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .todos-section::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .todos-section::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .todos-section::-webkit-scrollbar-thumb {
+            background: rgba(102, 126, 234, 0.3);
+            border-radius: 2px;
+        }
+
+        .todo-checkbox:focus-visible,
+        .delete-btn:focus-visible,
+        .add-btn:focus-visible,
+        .filter-tab:focus-visible {
+            outline: 2px solid #667eea;
+            outline-offset: 2px;
+        }
+
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23667eea'%3e%3cpath fill-rule='evenodd' d='M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z' clip-rule='evenodd'/%3e%3c/svg%3e");
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        /* Install prompt */
+        .install-prompt {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 12px 20px;
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 14px;
+        }
+
+        .install-prompt.show {
+            display: flex;
+        }
+
+        .install-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .install-close {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 4px;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="install-prompt" id="installPrompt">
+        <span>📱 Install Rohit's Todo App for offline access!</span>
+        <div>
+            <button class="install-btn" id="installBtn">Install</button>
+            <button class="install-close" id="installClose">×</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <div class="offline-indicator" id="offlineIndicator">🔴 Offline</div>
+            <h1>🎯 Rohit's Todos</h1>
+            <div class="subtitle">Personal Task Manager</div>
+            <div class="stats">
+                <div>Total: <span id="totalCount">0</span></div>
+                <div>Pending: <span id="pendingCount">0</span></div>
+                <div>Completed: <span id="completedCount">0</span></div>
+            </div>
+        </div>
+
+        <div class="add-section">
+            <div class="input-group">
+                <input 
+                    type="text" 
+                    id="todoInput" 
+                    class="todo-input" 
+                    placeholder="What needs to be done, Rohit?" 
+                    maxlength="200"
+                    autocomplete="off"
+                >
+                
+                <div class="date-section">
+                    <div class="date-toggle">
+                        <input type="checkbox" id="dateToggle">
+                        <label for="dateToggle">Add due date 📅</label>
+                    </div>
+                    
+                    <input 
+                        type="date" 
+                        id="dateInput" 
+                        class="date-input hidden"
+                    >
+                </div>
+                
+                <button id="addBtn" class="add-btn">➕ Add Todo</button>
+            </div>
+        </div>
+
+        <div class="todos-section">
+            <div class="filter-tabs">
+                <button class="filter-tab active" data-filter="all">All</button>
+                <button class="filter-tab" data-filter="pending">Pending</button>
+                <button class="filter-tab" data-filter="completed">Completed</button>
+            </div>
+            
+            <div id="todosList"></div>
+            
+            <div id="emptyState" class="empty-state hidden">
+                <div class="empty-icon">📝</div>
+                <h3>No todos yet, Rohit!</h3>
+                <p>Add your first todo above to get started!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                const swScript = `
+                    const CACHE_NAME = 'rohit-todo-v1.0.2';
+                    const urlsToCache = ['./', 'manifest.json'];
+
+                    self.addEventListener('install', function(event) {
+                        event.waitUntil(
+                            caches.open(CACHE_NAME)
+                                .then(function(cache) {
+                                    return cache.addAll(urlsToCache);
+                                })
+                        );
+                        self.skipWaiting();
+                    });
+
+                    self.addEventListener('fetch', function(event) {
+                        event.respondWith(
+                            caches.match(event.request)
+                                .then(function(response) {
+                                    if (response) {
+                                        return response;
+                                    }
+                                    return fetch(event.request);
+                                })
+                        );
+                    });
+
+                    self.addEventListener('activate', function(event) {
+                        event.waitUntil(
+                            caches.keys().then(function(cacheNames) {
+                                return Promise.all(
+                                    cacheNames.map(function(cacheName) {
+                                        if (cacheName !== CACHE_NAME) {
+                                            return caches.delete(cacheName);
+                                        }
+                                    })
+                                );
+                            })
+                        );
+                    });
+                `;
+                
+                const blob = new Blob([swScript], {type: 'application/javascript'});
+                const swUrl = URL.createObjectURL(blob);
+                
+                navigator.serviceWorker.register(swUrl)
+                    .then(function(registration) {
+                        console.log('SW registered successfully');
+                    })
+                    .catch(function(registrationError) {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
+
+        class RohitTodoApp {
+            constructor() {
+                this.todos = [];
+                this.currentFilter = 'all';
+                this.isLoading = false;
+                this.storageKey = 'rohit-personal-todos-v2'; // Personalized storage key
+                
+                this.initializeElements();
+                this.setupEventListeners();
+                this.loadTodos();
+                this.render();
+                this.setupPWA();
+                this.checkOnlineStatus();
+            }
+
+            initializeElements() {
+                this.todoInput = document.getElementById('todoInput');
+                this.dateInput = document.getElementById('dateInput');
+                this.dateToggle = document.getElementById('dateToggle');
+                this.addBtn = document.getElementById('addBtn');
+                this.todosList = document.getElementById('todosList');
+                this.emptyState = document.getElementById('emptyState');
+                this.totalCount = document.getElementById('totalCount');
+                this.pendingCount = document.getElementById('pendingCount');
+                this.completedCount = document.getElementById('completedCount');
+                this.filterTabs = document.querySelectorAll('.filter-tab');
+                this.offlineIndicator = document.getElementById('offlineIndicator');
+            }
+
+            setupEventListeners() {
+                this.addBtn.addEventListener('click', () => this.addTodo());
+                
+                this.todoInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        this.addTodo();
+                    }
+                });
+
+                this.dateToggle.addEventListener('change', () => {
+                    this.toggleDateInput();
+                });
+
+                this.filterTabs.forEach(tab => {
+                    tab.addEventListener('click', (e) => {
+                        const filter = e.target.dataset.filter;
+                        this.setFilter(filter);
+                    });
+                });
+
+                const today = new Date().toISOString().split('T')[0];
+                this.dateInput.min = today;
+
+                // Online/Offline events
+                window.addEventListener('online', () => this.checkOnlineStatus());
+                window.addEventListener('offline', () => this.checkOnlineStatus());
+            }
+
+            setupPWA() {
+                let deferredPrompt;
+                const installPrompt = document.getElementById('installPrompt');
+                const installBtn = document.getElementById('installBtn');
+                const installClose = document.getElementById('installClose');
+
+                window.addEventListener('beforeinstallprompt', (e) => {
+                    e.preventDefault();
+                    deferredPrompt = e;
+                    installPrompt.classList.add('show');
+                });
+
+                installBtn.addEventListener('click', async () => {
+                    if (deferredPrompt) {
+                        deferredPrompt.prompt();
+                        const { outcome } = await deferredPrompt.userChoice;
+                        if (outcome === 'accepted') {
+                            console.log('PWA installed');
+                        }
+                        deferredPrompt = null;
+                        installPrompt.classList.remove('show');
+                    }
+                });
+
+                installClose.addEventListener('click', () => {
+                    installPrompt.classList.remove('show');
+                    deferredPrompt = null;
+                });
+
+                // Hide install prompt if already installed
+                window.addEventListener('appinstalled', () => {
+                    installPrompt.classList.remove('show');
+                });
+            }
+
+            checkOnlineStatus() {
+                if (navigator.onLine) {
+                    this.offlineIndicator.classList.remove('show');
+                    this.offlineIndicator.innerHTML = '🟢 Online';
+                } else {
+                    this.offlineIndicator.classList.add('show');
+                    this.offlineIndicator.innerHTML = '🔴 Offline';
+                }
+            }
+
+            toggleDateInput() {
+                if (this.dateToggle.checked) {
+                    this.dateInput.classList.remove('hidden');
+                    if (!this.dateInput.value) {
+                        this.dateInput.value = new Date().toISOString().split('T')[0];
+                    }
+                } else {
+                    this.dateInput.classList.add('hidden');
+                    this.dateInput.value = '';
+                }
+            }
+
+            loadTodos() {
+                try {
+                    const saved = localStorage.getItem(this.storageKey);
+                    this.todos = saved ? JSON.parse(saved) : [];
+                    
+                    // Migration from old storage key if exists
+                    const oldSaved = localStorage.getItem('personalTodos');
+                    if (oldSaved && this.todos.length === 0) {
+                        this.todos = JSON.parse(oldSaved);
+                        this.saveTodos(); // Save to new key
+                        localStorage.removeItem('personalTodos'); // Remove old key
+                    }
+                } catch (error) {
+                    console.error('Error loading todos:', error);
+                    this.todos = [];
+                }
+            }
+
+            saveTodos() {
+                try {
+                    localStorage.setItem(this.storageKey, JSON.stringify(this.todos));
+                } catch (error) {
+                    console.error('Error saving todos:', error);
+                    alert('Unable to save todos. Storage might be full.');
+                }
+            }
+
+            addTodo() {
+                if (this.isLoading) return;
+                
+                const text = this.todoInput.value.trim();
+                
+                if (!text) {
+                    this.showInputError('Please enter a todo!');
+                    return;
+                }
+
+                this.isLoading = true;
+                this.addBtn.disabled = true;
+                this.addBtn.textContent = 'Adding...';
+
+                try {
+                    const todo = {
+                        id: Date.now() + Math.random(),
+                        text: text,
+                        completed: false,
+                        date: this.dateToggle.checked ? this.dateInput.value : null,
+                        createdAt: new Date().toISOString(),
+                        owner: 'rohit' // Personal identifier
+                    };
+
+                    this.todos.unshift(todo);
+                    this.saveTodos();
+                    this.clearForm();
+                    this.render();
+                    this.showSuccess();
+                } catch (error) {
+                    console.error('Error adding todo:', error);
+                    alert('Error adding todo. Please try again.');
+                } finally {
+                    this.isLoading = false;
+                    this.addBtn.disabled = false;
+                    this.addBtn.textContent = '➕ Add Todo';
+                }
+            }
+
+            deleteTodo(id) {
+                if (this.isLoading) return;
+                
+                if (confirm('Delete this todo?')) {
+                    try {
+                        this.todos = this.todos.filter(todo => todo.id !== id);
+                        this.saveTodos();
+                        this.render();
+                    } catch (error) {
+                        console.error('Error deleting todo:', error);
+                        alert('Error deleting todo. Please try again.');
+                    }
+                }
+            }
+
+            toggleTodo(id) {
+                if (this.isLoading) return;
+                
+                try {
+                    const todo = this.todos.find(todo => todo.id === id);
+                    if (todo) {
+                        todo.completed = !todo.completed;
+                        todo.completedAt = todo.completed ? new Date().toISOString() : null;
+                        this.saveTodos();
+                        this.render();
+                    }
+                } catch (error) {
+                    console.error('Error toggling todo:', error);
+                    alert('Error updating todo. Please try again.');
+                }
+            }
+
+            setFilter(filter) {
+                this.currentFilter = filter;
+                
+                this.filterTabs.forEach(tab => {
+                    tab.classList.toggle('active', tab.dataset.filter === filter);
+                });
+                
+                this.renderTodos();
+            }
+
+            clearForm() {
+                this.todoInput.value = '';
+                this.dateInput.value = '';
+                this.dateToggle.checked = false;
+                this.dateInput.classList.add('hidden');
+            }
+
+            showInputError(message) {
+                this.todoInput.style.borderColor = '#ff6b6b';
+                this.todoInput.placeholder = message;
+                setTimeout(() => {
+                    this.todoInput.style.borderColor = '#e0e0e0';
+                    this.todoInput.placeholder = 'What needs to be done, Rohit?';
+                }, 2000);
+                this.todoInput.focus();
+            }
+
+            showSuccess() {
+                this.todoInput.style.borderColor = '#27ae60';
+                setTimeout(() => {
+                    this.todoInput.style.borderColor = '#e0e0e0';
+                }, 1000);
+            }
+
+            getFilteredTodos() {
+                switch (this.currentFilter) {
+                    case 'pending':
+                        return this.todos.filter(todo => !todo.completed);
+                    case 'completed':
+                        return this.todos.filter(todo => todo.completed);
+                    default:
+                        return this.todos;
+                }
+            }
+
+            formatDate(dateString) {
+                if (!dateString) return '';
+                
+                try {
+                    const date = new Date(dateString);
+                    const today = new Date();
+                    const tomorrow = new Date(today);
+                    tomorrow.setDate(tomorrow.getDate() + 1);
+                    
+                    if (date.toDateString() === today.toDateString()) {
+                        return 'Today';
+                    } else if (date.toDateString() === tomorrow.toDateString()) {
+                        return 'Tomorrow';
+                    } else {
+                        return date.toLocaleDateString('en-US', { 
+                            month: 'short', 
+                            day: 'numeric',
+                            year: date.getFullYear() !== today.getFullYear() ? 'numeric' : undefined
+                        });
+                    }
+                } catch (error) {
+                    return dateString;
+                }
+            }
+
+            escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+
+            renderTodos() {
+                const filteredTodos = this.getFilteredTodos();
+                
+                if (filteredTodos.length === 0) {
+                    this.todosList.innerHTML = '';
+                    this.emptyState.classList.remove('hidden');
+                    return;
+                }
+                
+                this.emptyState.classList.add('hidden');
+                
+                this.todosList.innerHTML = filteredTodos.map(todo => `
+                    <div class="todo-item ${todo.completed ? 'completed' : ''}">
+                        <div class="todo-checkbox ${todo.completed ? 'checked' : ''}" 
+                             onclick="app.toggleTodo(${todo.id})">
+                            ${todo.completed ? '✓' : ''}
+                        </div>
+                        <div class="todo-details">
+                            <div class="todo-text">${this.escapeHtml(todo.text)}</div>
+                            ${todo.date ? `<div class="todo-date">📅 ${this.formatDate(todo.date)}</div>` : ''}
+                            <div class="todo-actions">
+                                <button class="delete-btn" onclick="app.deleteTodo(${todo.id})">
+                                    🗑️ Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            updateStats() {
+                const total = this.todos.length;
+                const completed = this.todos.filter(todo => todo.completed).length;
+                const pending = total - completed;
+                
+                this.totalCount.textContent = total;
+                this.pendingCount.textContent = pending;
+                this.completedCount.textContent = completed;
+            }
+
+            render() {
+                this.updateStats();
+                this.renderTodos();
+            }
+
+            // Export data function (for backup)
+            exportData() {
+                const data = {
+                    todos: this.todos,
+                    exportedAt: new Date().toISOString(),
+                    owner: 'rohit',
+                    version: '2.0'
+                };
+                
+                const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `rohit-todos-backup-${new Date().toISOString().split('T')[0]}.json`;
+                a.click();
+                URL.revokeObjectURL(url);
+            }
+
+            // Import data function (for restore)
+            importData(jsonData) {
+                try {
+                    const data = JSON.parse(jsonData);
+                    if (data.todos && Array.isArray(data.todos)) {
+                        this.todos = data.todos;
+                        this.saveTodos();
+                        this.render();
+                        alert('Data imported successfully!');
+                    }
+                } catch (error) {
+                    alert('Error importing data. Please check the file format.');
+                }
+            }
+
+            // Get app info
+            getAppInfo() {
+                return {
+                    name: "Rohit's Personal Todo App",
+                    version: "2.0.0",
+                    totalTodos: this.todos.length,
+                    completedTodos: this.todos.filter(t => t.completed).length,
+                    owner: 'rohit',
+                    isOnline: navigator.onLine,
+                    isInstalled: window.matchMedia('(display-mode: standalone)').matches,
+                    storageUsed: localStorage.getItem(this.storageKey)?.length || 0
+                };
+            }
+        }
+
+        // Initialize app when page loads
+        let app;
+        document.addEventListener('DOMContentLoaded', () => {
+            app = new RohitTodoApp();
+            
+            // Add keyboard shortcuts
+            document.addEventListener('keydown', (e) => {
+                // Ctrl/Cmd + N to focus on new todo input
+                if ((e.ctrlKey || e.metaKey) && e.key === 'n') {
+                    e.preventDefault();
+                    app.todoInput.focus();
+                }
+                
+                // Escape to clear input
+                if (e.key === 'Escape') {
+                    app.todoInput.blur();
+                    app.clearForm();
+                }
+            });
+            
+            // Console welcome message
+            console.log('🎯 Welcome to Rohit\'s Todo App!');
+            console.log('📱 Install this app for better experience!');
+            console.log('🔧 Debug info:', app.getAppInfo());
+        });
+
+        // Global functions for easy debugging
+        window.exportTodos = () => app.exportData();
+        window.getAppInfo = () => console.log(app.getAppInfo());
+        window.clearAllTodos = () => {
+            if (confirm('Clear ALL todos? This cannot be undone!')) {
+                app.todos = [];
+                app.saveTodos();
+                app.render();
+            }
+        };
+    </script>
+</body>
+</html>
