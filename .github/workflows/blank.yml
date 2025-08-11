@@ -33,5 +33,9 @@ jobs:
         with:
           path: ./public
 
+
+
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
+          with:
+            token: ${{ secrets.GH_PAT }}
