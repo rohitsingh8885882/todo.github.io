@@ -462,23 +462,84 @@
         @media (max-width: 768px) {
             .main-content {
                 grid-template-columns: 1fr;
-                gap: 20px;
-                padding: 20px;
+                gap: 16px;
+                padding: 10px;
             }
-            
+            .section {
+                padding: 15px;
+                border-radius: 14px;
+            }
             .header {
-                padding: 20px;
+                padding: 14px;
             }
-            
             .header h1 {
-                font-size: 2em;
+                font-size: 1.4em;
             }
-            
             .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 15px;
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            .input-group, .input-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .todo-input, .select-input, .btn {
+                width: 100%;
+                font-size: 15px;
+                padding: 12px 10px;
+            }
+            .todo-item, .habit-item {
+                padding: 12px;
+                border-radius: 12px;
+            }
+            .modal-content {
+                padding: 16px;
+                max-width: 95vw;
+                width: 95vw;
+                max-height: 90vh;
+            }
+            .modal-title {
+                font-size: 1.1em;
+            }
+            .close-btn {
+                font-size: 20px;
+            }
+            .floating-action {
+                width: 48px;
+                height: 48px;
+                font-size: 20px;
+                bottom: 16px;
+                right: 16px;
+            }
+            .todo-header, .habit-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            .todo-meta {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .todo-actions, .habit-actions {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .notification-settings {
+                padding: 12px;
+                border-radius: 12px;
+            }
+            .progress-bar {
+                height: 6px;
+            }
+            .empty-state {
+                padding: 20px 8px;
+                font-size: 15px;
+            }
+            .empty-icon {
+                font-size: 2.5em;
             }
         }
+        
 
         .floating-action {
             position: fixed;
