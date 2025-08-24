@@ -6,7 +6,7 @@
     <title>Advanced Todo App</title>
     
     <!-- PWA Meta Tags -->
-    <meta name="theme-color" content="#6366f1">
+    <meta name="theme-color" content="#2d3a5a">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Advanced Todos">
@@ -17,6 +17,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
 
         :root {
             --primary: #2d3a5a; /* Light navy blue */
@@ -27,100 +28,101 @@
             --danger: #ff3864; /* Retro red */
             --info: #00bfff; /* Retro blue */
             --dark: #ffffff; /* White text */
-            --light: #2d3a5a; /* Light navy for cards */
+            --light: #f8f9fa;
             --gray: #bfc9d1; /* Soft gray */
             --border: #3c4a6e; /* Navy border */
-            --shadow: 0 10px 25px rgba(44, 58, 90, 0.15);
-            --shadow-lg: 0 20px 40px rgba(44, 58, 90, 0.25);
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
         }
 
         body {
-            font-family: 'Press Start 2P', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
             background: linear-gradient(135deg, #2d3a5a 0%, #1a2236 100%);
             min-height: 100vh;
-            padding: 10px;
+            padding: 16px;
             color: var(--dark);
-            font-size: clamp(14px, 2vw, 18px);
+            font-size: 16px;
+            line-height: 1.5;
         }
 
         .container {
-            max-width: 100vw;
+            max-width: 1200px;
             margin: 0 auto;
             background: var(--primary-dark);
-            border-radius: 18px;
+            border-radius: 16px;
             box-shadow: var(--shadow-lg);
             overflow: hidden;
-            border: 2px solid var(--border);
+            border: 1px solid var(--border);
         }
 
         .header {
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            padding: 24px 10px 18px 10px;
+            padding: 24px 16px;
             text-align: center;
             color: var(--dark);
             position: relative;
-            border-bottom: 2px solid var(--border);
+            border-bottom: 1px solid var(--border);
         }
 
         .header h1 {
-            font-size: clamp(1.5em, 5vw, 2.5em);
-            margin-bottom: 10px;
+            font-size: 28px;
+            margin-bottom: 8px;
             font-weight: 700;
-            text-shadow: 0 2px 4px var(--secondary);
         }
 
         .header .subtitle {
-            font-size: 1.1em;
+            font-size: 16px;
             opacity: 0.9;
             margin-bottom: 20px;
         }
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 16px;
             margin-top: 20px;
         }
 
         .stat-card {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 15px;
-            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 16px 12px;
+            border-radius: 12px;
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
         }
 
         .stat-number {
-            font-size: 1.8em;
+            font-size: 28px;
             font-weight: 700;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
         }
 
         .stat-label {
-            font-size: 0.9em;
+            font-size: 14px;
             opacity: 0.9;
         }
 
         .main-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            padding: 30px;
+            gap: 24px;
+            padding: 24px;
         }
 
         .section {
-            background: var(--light);
-            border-radius: 16px;
-            padding: 18px 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 14px;
+            padding: 20px;
             box-shadow: var(--shadow);
-            border: 2px solid var(--border);
+            border: 1px solid var(--border);
             color: var(--dark);
         }
 
         .section-title {
-            font-size: clamp(1.1em, 3vw, 1.4em);
+            font-size: 20px;
             font-weight: 700;
-            margin-bottom: 18px;
+            margin-bottom: 20px;
             color: var(--secondary);
             display: flex;
             align-items: center;
@@ -130,72 +132,76 @@
         .input-group {
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            margin-bottom: 20px;
+            gap: 16px;
+            margin-bottom: 24px;
         }
 
         .input-row {
             display: flex;
-            gap: 15px;
+            gap: 12px;
             align-items: center;
         }
 
         .todo-input {
             flex: 1;
-            padding: 12px 14px;
-            border: 2px solid var(--border);
+            padding: 14px 16px;
+            border: 1px solid var(--border);
             border-radius: 10px;
-            font-size: clamp(14px, 2vw, 16px);
-            background: var(--primary-dark);
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.1);
             color: var(--dark);
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
         }
 
         .todo-input:focus {
             outline: none;
-            border-color: var(--primary);
-            background: white;
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+            border-color: var(--secondary);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 0 3px rgba(255, 179, 71, 0.2);
         }
 
         .select-input {
-            padding: 15px 20px;
-            border: 2px solid var(--border);
-            border-radius: 12px;
+            padding: 14px 16px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
             font-size: 16px;
-            background: var(--light);
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--dark);
             cursor: pointer;
+            flex: 1;
         }
 
         .btn {
-            padding: 12px 18px;
+            padding: 14px 20px;
             border: none;
             border-radius: 10px;
-            font-size: clamp(14px, 2vw, 16px);
-            font-weight: 700;
+            font-size: 16px;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
             background: var(--secondary);
             color: var(--primary-dark);
+            box-shadow: var(--shadow);
         }
 
         .btn-primary {
             background: linear-gradient(135deg, var(--secondary), var(--primary));
-            color: var(--primary-dark);
+            color: var(--dark);
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-lg);
         }
 
         .btn-secondary {
-            background: var(--primary-dark);
+            background: rgba(255, 255, 255, 0.1);
             color: var(--secondary);
-            border: 2px solid var(--border);
+            border: 1px solid var(--border);
         }
 
         .btn-success {
@@ -210,48 +216,50 @@
 
         .btn-danger {
             background: var(--danger);
-            color: var(--primary-dark);
+            color: var(--dark);
         }
 
         .btn-sm {
-            padding: 8px 16px;
+            padding: 10px 16px;
             font-size: 14px;
         }
 
         .tabs {
             display: flex;
-            background: var(--light);
-            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
             padding: 4px;
             margin-bottom: 20px;
+            gap: 4px;
         }
 
         .tab {
             flex: 1;
-            padding: 12px 20px;
+            padding: 12px 16px;
             border: none;
             background: transparent;
             border-radius: 8px;
             cursor: pointer;
             font-size: 14px;
-            font-weight: 500;
-            transition: all 0.3s ease;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            color: var(--gray);
         }
 
         .tab.active {
-            background: white;
-            color: var(--primary);
+            background: var(--secondary);
+            color: var(--primary-dark);
             box-shadow: var(--shadow);
         }
 
         .todo-item {
-            background: var(--primary-dark);
-            border-radius: 14px;
-            padding: 14px;
-            margin: 12px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 16px;
+            margin: 16px 0;
             box-shadow: var(--shadow);
-            border: 2px solid var(--border);
-            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+            transition: all 0.2s ease;
             color: var(--dark);
         }
 
@@ -262,45 +270,46 @@
 
         .todo-item.completed {
             opacity: 0.7;
-            background: #f0fdf4;
+            background: rgba(0, 230, 162, 0.1);
             border-color: var(--success);
         }
 
         .todo-item.in-progress {
-            background: #fef3c7;
+            background: rgba(255, 111, 97, 0.1);
             border-color: var(--warning);
         }
 
         .todo-header {
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 15px;
+            gap: 16px;
+            margin-bottom: 16px;
         }
 
         .todo-checkbox {
             width: 24px;
             height: 24px;
-            border-radius: 50%;
+            border-radius: 6px;
             border: 2px solid var(--border);
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             font-weight: bold;
+            flex-shrink: 0;
         }
 
         .todo-checkbox.checked {
             background: var(--success);
             border-color: var(--success);
-            color: white;
+            color: var(--primary-dark);
         }
 
         .todo-checkbox.in-progress {
             background: var(--warning);
             border-color: var(--warning);
-            color: white;
+            color: var(--primary-dark);
         }
 
         .todo-content {
@@ -308,10 +317,10 @@
         }
 
         .todo-text {
-            font-size: clamp(14px, 2vw, 16px);
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: var(--secondary);
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--dark);
         }
 
         .todo-item.completed .todo-text {
@@ -321,26 +330,26 @@
 
         .todo-meta {
             display: flex;
-            gap: 15px;
+            gap: 12px;
             align-items: center;
             flex-wrap: wrap;
         }
 
         .todo-badge {
-            padding: 4px 10px;
-            border-radius: 16px;
-            font-size: clamp(11px, 2vw, 13px);
-            font-weight: 700;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
         }
 
         .badge-priority {
             background: var(--danger);
-            color: var(--primary-dark);
+            color: var(--dark);
         }
 
         .badge-category {
             background: var(--info);
-            color: var(--primary-dark);
+            color: var(--dark);
         }
 
         .badge-date {
@@ -350,84 +359,90 @@
 
         .todo-actions {
             display: flex;
-            gap: 10px;
-            margin-top: 15px;
+            gap: 12px;
+            margin-top: 16px;
+            justify-content: flex-end;
         }
 
         .habit-item {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
-            border: 2px solid var(--border);
-            border-radius: 14px;
-            padding: 14px;
-            margin: 12px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            margin: 16px 0;
             color: var(--dark);
+            box-shadow: var(--shadow);
         }
 
         .habit-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 16px;
+            gap: 12px;
         }
 
         .habit-title {
-            font-size: clamp(14px, 2vw, 16px);
-            font-weight: 700;
-            color: var(--secondary);
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--dark);
+            flex: 1;
         }
 
         .habit-streak {
             background: var(--success);
             color: var(--primary-dark);
-            padding: 6px 10px;
-            border-radius: 16px;
-            font-size: clamp(12px, 2vw, 14px);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
             font-weight: 700;
+            white-space: nowrap;
         }
 
         .habit-actions {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             align-items: center;
+            justify-content: flex-end;
         }
 
         .progress-bar {
             width: 100%;
-            height: 8px;
-            background: var(--border);
-            border-radius: 4px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
             overflow: hidden;
-            margin: 10px 0;
+            margin: 12px 0;
         }
 
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, var(--success), var(--primary));
+            background: linear-gradient(90deg, var(--success), var(--secondary));
             transition: width 0.3s ease;
         }
 
         .notification-settings {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            border: 2px solid var(--border);
-            border-radius: 14px;
-            padding: 14px;
-            margin-top: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 24px;
             color: var(--dark);
         }
 
         .notification-toggle {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
+            gap: 12px;
+            margin-bottom: 16px;
         }
 
         .toggle-switch {
             position: relative;
             width: 50px;
-            height: 24px;
-            background: var(--gray);
-            border-radius: 12px;
+            height: 26px;
+            background: var(--border);
+            border-radius: 13px;
             cursor: pointer;
             transition: background 0.3s ease;
         }
@@ -438,8 +453,8 @@
 
         .toggle-slider {
             position: absolute;
-            top: 2px;
-            left: 2px;
+            top: 3px;
+            left: 3px;
             width: 20px;
             height: 20px;
             background: white;
@@ -448,18 +463,21 @@
         }
 
         .toggle-switch.active .toggle-slider {
-            transform: translateX(26px);
+            transform: translateX(24px);
         }
 
         .empty-state {
             text-align: center;
             padding: 40px 20px;
             color: var(--gray);
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            margin: 16px 0;
         }
 
         .empty-icon {
-            font-size: 4em;
-            margin-bottom: 20px;
+            font-size: 48px;
+            margin-bottom: 16px;
             opacity: 0.5;
         }
 
@@ -467,107 +485,10 @@
             display: none !important;
         }
 
-        @media (max-width: 768px) {
-            .main-content {
-                grid-template-columns: 1fr;
-                gap: 10px;
-                padding: 4px;
-            }
-            .section {
-                padding: 8px;
-                border-radius: 12px;
-                box-shadow: var(--shadow);
-                margin-bottom: 8px;
-            }
-            .header {
-                padding: 8px;
-            }
-            .header h1 {
-                font-size: 1em;
-            }
-            .stats-grid {
-                grid-template-columns: 1fr;
-                gap: 6px;
-            }
-            .input-group, .input-row {
-                flex-direction: column;
-                gap: 6px;
-            }
-            .todo-input, .select-input, .btn {
-                width: 100%;
-                font-size: clamp(12px, 2vw, 15px);
-                padding: 8px 6px;
-                box-sizing: border-box;
-            }
-            .btn {
-                min-width: 0;
-                word-break: break-word;
-                white-space: normal;
-            }
-            .todo-item, .habit-item {
-                padding: 8px;
-                border-radius: 12px;
-                box-shadow: var(--shadow);
-                margin-bottom: 6px;
-                word-break: break-word;
-                overflow-wrap: break-word;
-            }
-            .todo-header, .habit-header {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 4px;
-            }
-            .todo-meta {
-                flex-direction: column;
-                gap: 4px;
-                word-break: break-word;
-            }
-            .todo-actions, .habit-actions {
-                flex-direction: column;
-                gap: 4px;
-                width: 100%;
-            }
-            .modal-content {
-                padding: 8px;
-                max-width: 99vw;
-                width: 99vw;
-                max-height: 98vh;
-                overflow-y: auto;
-            }
-            .modal-title {
-                font-size: 0.9em;
-            }
-            .close-btn {
-                font-size: 16px;
-            }
-            .floating-action {
-                width: 32px;
-                height: 32px;
-                font-size: 16px;
-                bottom: 6px;
-                right: 6px;
-            }
-            .notification-settings {
-                padding: 6px;
-                border-radius: 8px;
-            }
-            .progress-bar {
-                height: 4px;
-            }
-            .empty-state {
-                padding: 8px 2px;
-                font-size: 11px;
-            }
-            .empty-icon {
-                font-size: 1.5em;
-            }
-        }
-        }
-
         .floating-action {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
+            bottom: 24px;
+            right: 24px;
             width: 60px;
             height: 60px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
@@ -576,15 +497,16 @@
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 24px;
+            font-size: 28px;
             cursor: pointer;
             box-shadow: var(--shadow-lg);
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             z-index: 1000;
+            border: none;
         }
 
         .floating-action:hover {
-            transform: scale(1.1);
+            transform: scale(1.1) rotate(90deg);
         }
 
         .modal {
@@ -593,7 +515,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.7);
             display: none;
             align-items: center;
             justify-content: center;
@@ -605,13 +527,15 @@
         }
 
         .modal-content {
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
+            background: var(--primary-dark);
+            border-radius: 16px;
+            padding: 24px;
             max-width: 500px;
             width: 90%;
-            max-height: 80vh;
+            max-height: 90vh;
             overflow-y: auto;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-lg);
         }
 
         .modal-header {
@@ -622,16 +546,205 @@
         }
 
         .modal-title {
-            font-size: 1.5em;
-            font-weight: 600;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--secondary);
         }
 
         .close-btn {
             background: none;
             border: none;
-            font-size: 24px;
+            font-size: 28px;
             cursor: pointer;
             color: var(--gray);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 12px;
+                font-size: 15px;
+            }
+            
+            .container {
+                border-radius: 12px;
+            }
+            
+            .header {
+                padding: 20px 16px;
+            }
+            
+            .header h1 {
+                font-size: 24px;
+            }
+            
+            .header .subtitle {
+                font-size: 14px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+            
+            .stat-card {
+                padding: 14px 10px;
+            }
+            
+            .stat-number {
+                font-size: 24px;
+            }
+            
+            .stat-label {
+                font-size: 13px;
+            }
+            
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 20px;
+            }
+            
+            .section {
+                padding: 16px;
+            }
+            
+            .section-title {
+                font-size: 18px;
+            }
+            
+            .input-group {
+                gap: 12px;
+                margin-bottom: 20px;
+            }
+            
+            .input-row {
+                flex-direction: column;
+                gap: 12px;
+                align-items: stretch;
+            }
+            
+            .todo-input, .select-input {
+                padding: 12px 14px;
+                font-size: 15px;
+            }
+            
+            .btn {
+                padding: 12px 16px;
+                font-size: 15px;
+            }
+            
+            .todo-header {
+                gap: 12px;
+            }
+            
+            .todo-checkbox {
+                width: 22px;
+                height: 22px;
+            }
+            
+            .todo-text {
+                font-size: 15px;
+            }
+            
+            .todo-meta {
+                gap: 8px;
+            }
+            
+            .todo-badge {
+                padding: 4px 10px;
+                font-size: 11px;
+            }
+            
+            .todo-actions {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .habit-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            
+            .habit-actions {
+                width: 100%;
+                justify-content: flex-end;
+            }
+            
+            .notification-settings {
+                padding: 16px;
+            }
+            
+            .modal-content {
+                padding: 20px;
+                width: 95%;
+            }
+            
+            .modal-title {
+                font-size: 20px;
+            }
+            
+            .floating-action {
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
+                bottom: 16px;
+                right: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 8px;
+            }
+            
+            .header {
+                padding: 16px 12px;
+            }
+            
+            .header h1 {
+                font-size: 20px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .main-content {
+                padding: 16px;
+                gap: 16px;
+            }
+            
+            .section {
+                padding: 14px;
+            }
+            
+            .section-title {
+                font-size: 16px;
+            }
+            
+            .todo-item {
+                padding: 14px;
+            }
+            
+            .habit-item {
+                padding: 14px;
+            }
+            
+            .modal-content {
+                padding: 16px;
+            }
         }
     </style>
 </head>
@@ -726,7 +839,7 @@
                         </div>
                         <span>Enable 8 AM Daily Reminders</span>
                     </div>
-                    <p style="font-size: 14px; color: #92400e;">
+                    <p style="font-size: 14px; color: #ffb347; opacity: 0.9;">
                         Get notified every morning at 8 AM about your pending tasks and daily habits.
                     </p>
                 </div>
@@ -735,9 +848,9 @@
     </div>
 
     <!-- Floating Action Button -->
-    <div class="floating-action" id="floatingAction">
+    <button class="floating-action" id="floatingAction">
         <span>⚡</span>
-    </div>
+    </button>
 
     <!-- Quick Add Modal -->
     <div class="modal" id="quickAddModal">
@@ -799,6 +912,11 @@
                 this.pendingCount = document.getElementById('pendingCount');
                 this.inProgressCount = document.getElementById('inProgressCount');
                 this.completedCount = document.getElementById('completedCount');
+                
+                // Set default date to today
+                const today = new Date();
+                const formattedDate = today.toISOString().split('T')[0];
+                this.dateInput.value = formattedDate;
             }
 
             setupEventListeners() {
@@ -818,29 +936,52 @@
                 
                 this.notificationToggle.addEventListener('click', () => this.toggleNotifications());
                 
-                // Set default date to today
-                this.dateInput.value = new Date().toISOString().split('T')[0];
-                
                 // Tab switching
                 document.querySelectorAll('.tab').forEach(tab => {
                     tab.addEventListener('click', (e) => {
                         this.setFilter(e.target.dataset.filter);
                     });
                 });
+                
+                // Close modal when clicking outside
+                this.quickAddModal.addEventListener('click', (e) => {
+                    if (e.target === this.quickAddModal) {
+                        this.hideQuickAddModal();
+                    }
+                });
             }
 
             setupNotifications() {
                 if ('Notification' in window) {
-                    this.notificationToggle.addEventListener('click', () => this.requestNotificationPermission());
+                    if (Notification.permission === 'granted') {
+                        this.notificationsEnabled = true;
+                        this.notificationToggle.classList.add('active');
+                    }
                 }
             }
 
             async requestNotificationPermission() {
                 try {
+                    if (!('Notification' in window)) {
+                        alert('This browser does not support notifications');
+                        return;
+                    }
+                    
+                    if (Notification.permission === 'granted') {
+                        this.notificationsEnabled = true;
+                        this.notificationToggle.classList.add('active');
+                        this.saveData();
+                        return;
+                    }
+                    
                     const permission = await Notification.requestPermission();
                     if (permission === 'granted') {
                         this.notificationsEnabled = true;
                         this.notificationToggle.classList.add('active');
+                        this.saveData();
+                    } else {
+                        this.notificationsEnabled = false;
+                        this.notificationToggle.classList.remove('active');
                         this.saveData();
                     }
                 } catch (error) {
@@ -849,15 +990,6 @@
             }
 
             startDailyReminder() {
-                // Check if it's 8 AM and show notification
-                const now = new Date();
-                const hour = now.getHours();
-                const minute = now.getMinutes();
-                
-                if (hour === 8 && minute === 0) {
-                    this.showDailyReminder();
-                }
-                
                 // Check every minute
                 setInterval(() => {
                     const currentTime = new Date();
@@ -884,7 +1016,7 @@
                 if (message) {
                     new Notification('📅 Daily Reminder', {
                         body: message,
-                        icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%236366f1"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>',
+                        icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ffb347"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>',
                         tag: 'daily-reminder'
                     });
                 }
@@ -892,7 +1024,10 @@
 
             addTodo() {
                 const text = this.todoInput.value.trim();
-                if (!text) return;
+                if (!text) {
+                    alert('Please enter a task description');
+                    return;
+                }
                 
                 const todo = {
                     id: Date.now() + Math.random(),
@@ -913,7 +1048,10 @@
 
             addTodoFromModal() {
                 const text = this.modalTaskInput.value.trim();
-                if (!text) return;
+                if (!text) {
+                    alert('Please enter a task description');
+                    return;
+                }
                 
                 const todo = {
                     id: Date.now() + Math.random(),
@@ -935,7 +1073,10 @@
 
             addHabit() {
                 const text = this.habitInput.value.trim();
-                if (!text) return;
+                if (!text) {
+                    alert('Please enter a habit description');
+                    return;
+                }
                 
                 const habit = {
                     id: Date.now() + Math.random(),
@@ -1008,7 +1149,7 @@
             }
 
             deleteTodo(id) {
-                if (confirm('Delete this task?')) {
+                if (confirm('Are you sure you want to delete this task?')) {
                     this.todos = this.todos.filter(t => t.id !== id);
                     this.saveData();
                     this.render();
@@ -1016,7 +1157,7 @@
             }
 
             deleteHabit(id) {
-                if (confirm('Delete this habit?')) {
+                if (confirm('Are you sure you want to delete this habit?')) {
                     this.habits = this.habits.filter(h => h.id !== id);
                     this.saveData();
                     this.render();
@@ -1046,10 +1187,10 @@
 
             getPriorityColor(priority) {
                 switch (priority) {
-                    case 'high': return '#ef4444';
-                    case 'medium': return '#f59e0b';
-                    case 'low': return '#10b981';
-                    default: return '#6b7280';
+                    case 'high': return '#ff3864';
+                    case 'medium': return '#ff6f61';
+                    case 'low': return '#00e6a2';
+                    default: return '#bfc9d1';
                 }
             }
 
@@ -1076,17 +1217,16 @@
                 this.todosList.innerHTML = filteredTodos.map(todo => `
                     <div class="todo-item ${todo.status}">
                         <div class="todo-header">
-                            <div class="todo-checkbox ${todo.status}" onclick="app.toggleTodoStatus(${todo.id})">
-                                ${this.getStatusIcon(todo.status)}
+                            <div class="todo-checkbox ${todo.status === 'completed' ? 'checked' : todo.status === 'in-progress' ? 'in-progress' : ''}" 
+                                 onclick="app.toggleTodoStatus(${todo.id})">
+                                ${todo.status === 'completed' ? '✅' : todo.status === 'in-progress' ? '🔄' : '⭕'}
                             </div>
                             <div class="todo-content">
                                 <div class="todo-text">${todo.text}</div>
                                 <div class="todo-meta">
-                                    <span class="todo-badge badge-priority" style="background: ${this.getPriorityColor(todo.priority)}20; color: ${this.getPriorityColor(todo.priority)}">
-                                        ${todo.priority.toUpperCase()}
-                                    </span>
-                                    <span class="todo-badge badge-category">${todo.category}</span>
-                                    ${todo.date ? `<span class="todo-badge badge-date">📅 ${todo.date}</span>` : ''}
+                                    <span class="todo-badge badge-priority">${todo.priority.charAt(0).toUpperCase() + todo.priority.slice(1)} Priority</span>
+                                    <span class="todo-badge badge-category">${todo.category.charAt(0).toUpperCase() + todo.category.slice(1)}</span>
+                                    ${todo.date ? `<span class="todo-badge badge-date">📅 ${new Date(todo.date).toLocaleDateString()}</span>` : ''}
                                 </div>
                             </div>
                         </div>
@@ -1151,13 +1291,25 @@
             }
 
             toggleNotifications() {
-                this.notificationsEnabled = !this.notificationsEnabled;
-                this.notificationToggle.classList.toggle('active', this.notificationsEnabled);
-                this.saveData();
-                
-                if (this.notificationsEnabled) {
-                    this.requestNotificationPermission();
+                if (!('Notification' in window)) {
+                    alert('This browser does not support notifications');
+                    return;
                 }
+                
+                if (Notification.permission === 'denied') {
+                    alert('Notifications have been blocked. Please enable them in your browser settings.');
+                    return;
+                }
+                
+                if (Notification.permission === 'granted') {
+                    this.notificationsEnabled = !this.notificationsEnabled;
+                    this.notificationToggle.classList.toggle('active', this.notificationsEnabled);
+                    this.saveData();
+                    return;
+                }
+                
+                // Request permission
+                this.requestNotificationPermission();
             }
 
             loadData() {
@@ -1169,7 +1321,7 @@
                         this.habits = data.habits || [];
                         this.notificationsEnabled = data.notificationsEnabled || false;
                         
-                        if (this.notificationsEnabled) {
+                        if (this.notificationsEnabled && Notification.permission === 'granted') {
                             this.notificationToggle.classList.add('active');
                         }
                     }
